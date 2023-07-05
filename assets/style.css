@@ -1,0 +1,68 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: rgb(245, 245, 245);
+}
+
+.menu {
+  background-color: rgba(255, 0, 0, 0.26);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.menu-left {
+  padding: 20px 50px;
+}
+
+.menu-middle {
+  display: flex;
+  align-items: center;
+}
+
+.menu-middle ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-middle li {
+  display: inline-block;
+  background-color: bisque;
+  padding: 20px 50px;
+  margin: 0;
+}
+
+.menu-middle a {
+  text-decoration: none;
+}
+
+.menu-right {
+  padding: 20px 50px;
+  background-color: blue;
+}
+
+.content {
+  margin: 0 10rem;
+  background-color: white;
+}
+
+.myfarm-dashboard {
+  display: flex;
+  justify-content: center;
+}
+
+.myfarm-dashboard div {
+  background-color: red;
+  margin: 10px;
+}
+
+myfarm-dashboard .chart-sex {
+  width: 300px;
+}
