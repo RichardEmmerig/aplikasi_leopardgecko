@@ -122,3 +122,21 @@ myfarm-dashboard .chart-sex {
   max-height: 100%;
   object-fit: contain;
 }
+
+.form-content {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+}
+
+.form-content div:first-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+}

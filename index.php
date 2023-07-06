@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <!-- DATATABLES -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <!-- DROPZONE CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/dropzone@5.9.2/dist/dropzone.min.css">
     <!-- MY CSS -->
     <link rel="stylesheet" href="assets/style.css">
 
@@ -21,6 +23,9 @@
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <!-- CHART JS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- DROPZONE JS -->
+    <script src="https://cdn.jsdelivr.net/npm/dropzone@5.9.2/dist/dropzone.min.js"></script>
+
     <title>Aplikasi Leopard Gecko</title>
 </head>
 
@@ -41,6 +46,9 @@
         switch ($menu) {
             case 'leopard-gecko':
                 include_once "components/leopard-gecko.php";
+                break;
+            case 'tambahleopardgecko':
+                include_once "components/tambahleopardgecko.php";
                 break;
 
             default:
