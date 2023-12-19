@@ -1,104 +1,164 @@
 <div>
     <h1>Tambah Data Leopard Gecko baru</h1>
 </div>
-<form>
+<form action="components/proses_tambahleopardgecko.php" id="myForm" method="POST" enctype="multipart/form-data">
     <div class="form-content form-group">
-        <div id="myDropzone">
-            <div class="fallback">
-                <input type="file" name="images[]" multiple accept="image/*">
+        <div>
+            <div>
+                <h3>Tambahkan gambar gecko disini</h3>
+                <small>6 foto maximal</small>
             </div>
-            <div class="dropzone dz-message">
-                <button class="dz-button" type="button">Add Image</button>
-                <span>or drag and drop files here to upload</span>
+            <div id="myDropzone" class="dropzone">
+                <div class="dz-message">
+                    <span class="message">Drop files here to upload</span>
+                </div>
+                <div id="max-file-message" class="alert alert-warning" style="display: none;">
+                    Only 6 images can be added. No more files allowed.
+                    <input type="file" name="file" multiple style="display: none;">
+                </div>
             </div>
-            <div id="image-preview"></div>
         </div>
         <div>
             <div class="row">
-                <div class="col my-2">
-                    <input class="form-control" type="text" name="" id="" placeholder="Kode">
+                <div class="col">
+                    <h3 class="mb-4">Form Data Leopard Gecko</h3>
                 </div>
-                <div class="col my-2">
-                    <input class="form-control" type="text" name="" id="" placeholder="Class">
+            </div>
+            <div class="row">
+                <div class="col mb-2 mt-2">
+                    <input class="form-control" type="text" name="kode" id="" placeholder="Kode">
+                </div>
+                <div class="col mb-2 mt-2">
+                    <input class="form-control" type="text" name="class" id="" placeholder="Class">
                 </div>
             </div>
             <div class="row">
                 <div class="col my-2">
-                    <input class="form-control" type="text" name="" id="" placeholder="Morph">
+                    <input class="form-control" type="text" name="morph" id="" placeholder="Morph">
                 </div>
             </div>
             <div class="row">
                 <div class="col my-2">
-                    <input class="form-control" type="text" name="" id="" placeholder="Dam">
+                    <input class="form-control" type="text" name="dam" id="" placeholder="Dam">
                 </div>
             </div>
             <div class="row">
                 <div class="col my-2">
-                    <input class="form-control" type="text" name="" id="" placeholder="Sire">
+                    <input class="form-control" type="text" name="sire" id="" placeholder="Sire">
+                </div>
+            </div>
+            <div class="row pt-2">
+                <div class="col my-2 form-check">
+                    <div class="row pt-2">
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+                                <label class="form-check-label" for="male">
+                                    Male
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                                <label class="form-check-label" for="female">
+                                    Female
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 my-2">
+                    <input class="form-control" type="date" name="dob" id="" placeholder="D.O.B">
+                </div>
+                <div class="col-sm-2 my-2">
+                    <input class="form-control" type="text" name="incub" id="" placeholder="Incub">
                 </div>
             </div>
             <div class="row">
-                <div class="col my-2">
-                    <input class="form-control" type="radio" name="" id="" placeholder="Male">
-                    <input class="form-control" type="radio" name="" id="" placeholder="Female">
+                <div class="col mt-2">
+                    <input class="form-control" type="text" name="generasi" id="" placeholder="Generasi">
                 </div>
-                <div class="col my-2">
-                    <input class="form-control" type="date" name="" id="" placeholder="D.O.B">
-                </div>
-                <div class="col my-2">
-                    <input class="form-control" type="text" name="" id="" placeholder="Incub">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col my-2">
-                    <input class="form-control" type="text" name="" id="" placeholder="Generasi">
-                </div>
-                <div class="col my-2">
-                    <input class="form-control" type="text" name="" id="" placeholder="Harga">
+                <div class="col mt-2">
+                    <input class="form-control" type="text" name="harga" id="" placeholder="Harga">
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <input type="submit" value="simpan" placeholder="Simpan">
+    <div class="row justify-content-end">
+        <div class="col text-right">
+            <button class="btn btn-primary start" id="submit-btn" type="button" placeholder="Simpan">Simpan</button>
         </div>
     </div>
 </form>
 
 <script>
+    // Initialize Dropzone
     Dropzone.autoDiscover = false;
-    Dropzone.options.myDropzone = {
-        autoProcessQueue: false,
-        acceptedFiles: 'image/*',
-        maxFiles: 6,
-        thumbnailWidth: null,
-        thumbnailHeight: null,
+    var myDropzone = new Dropzone("#myDropzone", {
+        url: "components/proses_tambahleopardgecko.php", // Replace with your server-side upload URL
+        acceptedFiles: "image/*",
+        maxFiles: 5,
+        maxFilesize: 3, // Maximum file size in megabytes
+        addRemoveLinks: true, // Show remove links for uploaded images
+        previewsContainer: "#myDropzone",
+        thumbnailWidth: 180,
+        thumbnailHeight: 180,
         init: function() {
-            var myDropzone = this;
-            var previewContainer = document.getElementById('image-preview');
+            var startButton = document.querySelector("#myDropzone .start");
+            var dzMessage = document.querySelector("#myDropzone .dz-message");
+            var maxFileMessage = document.getElementById("max-file-message");
 
-            this.on('thumbnail', function(file) {
-                // Do nothing to prevent the thumbnail from being generated
-            });
+            this.on("addedfile", function(file) {
+                if (this.files.length > this.options.maxFiles) {
+                    this.removeFile(file);
+                    alert("Only 5 images can be added. No more files allowed.");
+                }
 
-            this.on('addedfile', function(file) {
-                var img = document.createElement('img');
-                img.src = URL.createObjectURL(file);
-                img.classList.add('preview-image');
-                previewContainer.appendChild(img);
-            });
-
-            // Remove the uploaded images from the preview section when a file is removed
-            this.on('removedfile', function(file) {
-                var previewImages = previewContainer.getElementsByClassName('preview-image');
-                for (var i = 0; i < previewImages.length; i++) {
-                    if (previewImages[i].src.indexOf(file.dataURL) !== -1) {
-                        previewContainer.removeChild(previewImages[i]);
-                        break;
-                    }
+                if (this.files.length === this.options.maxFiles) {
+                    dzMessage.style.display = "none";
+                    // startButton.style.display = "block";
                 }
             });
+
+            this.on("success", function(file, response) {
+                // Handle successful file uploads
+                console.log("File uploaded:", file);
+            });
+
+            this.on("removedfile", function(file) {
+                // Handle file removal
+                console.log("File removed:", file);
+            });
         }
-    };
+    });
+
+    // Handle form submission
+    var submitBtn = document.getElementById("submit-btn");
+    submitBtn.addEventListener("click", function(event) {
+        event.preventDefault();
+
+        var form = document.getElementById("myForm");
+        var formData = new FormData(form);
+
+        // Get the uploaded files
+        var uploadedFiles = myDropzone.getAcceptedFiles();
+        for (var i = 0; i < uploadedFiles.length; i++) {
+            formData.append("file[]", uploadedFiles[i]);
+        }
+
+        // Send the form data to the server
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "components/proses_tambahleopardgecko.php", true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                } else {
+                    console.log("Error: " + xhr.status);
+                }
+            }
+        };
+        xhr.send(formData);
+    });
 </script>

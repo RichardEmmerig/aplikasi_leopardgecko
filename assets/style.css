@@ -127,16 +127,57 @@ myfarm-dashboard .chart-sex {
   display: flex;
   justify-content: space-evenly;
   flex-direction: row;
+  padding: 10px;
 }
 
 .form-content div:first-child {
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex: 1;
+  max-width: 500px; */
 }
 
-.preview-image {
-  display: block;
+.form-content > div {
+  flex: 1;
+  margin: 10px;
+}
+
+.dropzone {
+  padding: 0 auto !important;
+  position: relative;
+}
+
+/* Customize the Dropzone thumbnail container */
+.dropzone .dz-preview {
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* Display the thumbnails in a row layout */
+.dropzone .thumbnails-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dropzone .dz-preview .dz-image {
+  width: 180px;
+  height: 180px;
+}
+
+/* Customize the thumbnail image */
+.dropzone .dz-preview .dz-image img {
   width: 100%;
   height: auto;
-  margin-top: 10px;
+  object-fit: cover;
+}
+
+.dropzone.dz-started .dz-message {
+  display: block !important;
+}
+
+footer {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: white;
 }

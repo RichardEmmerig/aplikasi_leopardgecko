@@ -50,6 +50,12 @@
             case 'tambahleopardgecko':
                 include_once "components/tambahleopardgecko.php";
                 break;
+            case 'projek-breeding':
+                include_once "components/projek-breeding.php";
+                break;
+            case 'telur-clutch':
+                include_once "components/telur-clutch.php";
+                break;
 
             default:
                 include_once "components/myfarm.php";
@@ -58,6 +64,10 @@
 
         ?>
     </div>
+
+    <?php
+    include_once "components/footer.php";
+    ?>
 
 </body>
 

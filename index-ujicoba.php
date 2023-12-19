@@ -2,70 +2,68 @@
 <html>
 
 <head>
-    <title>Multiple Image Uploader</title>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/dropzone@5.9.2/dist/dropzone.min.css">
+    <meta charset="UTF-8">
+    <title>Dropzone Thumbnail Row Layout</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css">
     <style>
-        .dropzone-container {
-            width: 200px;
+        /* Customize the Dropzone thumbnail container */
+        .dropzone .dz-preview {
+            width: calc(33.33% - 10px);
+            /* 3 columns with margin */
+            margin-right: 10px;
             margin-bottom: 10px;
+            display: inline-block;
+            vertical-align: top;
         }
 
-        .preview-image {
-            display: block;
+        /* Display the thumbnails in a row layout */
+        .dropzone .thumbnails-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        /* Customize the thumbnail image */
+        .dropzone .dz-preview .dz-image img {
             width: 100%;
             height: auto;
-            margin-top: 10px;
+            object-fit: cover;
         }
     </style>
 </head>
 
 <body>
-    <form action="upload.php" class="dropzone" id="myDropzone">
-        <div class="fallback">
-            <input type="file" name="images[]" multiple accept="image/*">
-        </div>
-        <div class="dz-message">
-            <button class="dz-button" type="button">Add Image</button>
-            <span>or drag and drop files here to upload</span>
-        </div>
-    </form>
-    <div id="image-preview"></div>
+    <div id="my-dropzone" class="dropzone">
+        <div class="thumbnails-container"></div>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/dropzone@5.9.2/dist/dropzone.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
     <script>
-        Dropzone.options.myDropzone = {
-            autoProcessQueue: false,
-            acceptedFiles: 'image/*',
-            maxFiles: 6,
-            thumbnailWidth: null,
-            thumbnailHeight: null,
-            init: function() {
-                var myDropzone = this;
-                var previewContainer = document.getElementById('image-preview');
+        Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("#my-dropzone", {
+            url: "/upload", // Replace with your server-side upload URL
+            // Additional Dropzone configuration options...
+        });
 
-                this.on('thumbnail', function(file) {
-                    // Do nothing to prevent the thumbnail from being generated
-                });
+        // Function to create thumbnail preview elements
+        function createThumbnailElement(file, url) {
+            var thumbnailElement = document.createElement("div");
+            thumbnailElement.classList.add("dz-preview");
 
-                this.on('addedfile', function(file) {
-                    var img = document.createElement('img');
-                    img.src = URL.createObjectURL(file);
-                    img.classList.add('preview-image');
-                    previewContainer.appendChild(img);
-                });
+            var thumbnailImage = document.createElement("img");
+            thumbnailImage.src = url;
+            thumbnailImage.alt = file.name;
+            thumbnailElement.appendChild(thumbnailImage);
 
-                // Remove the uploaded images from the preview section when a file is removed
-                this.on('removedfile', function(file) {
-                    var previewImages = previewContainer.getElementsByClassName('preview-image');
-                    for (var i = 0; i < previewImages.length; i++) {
-                        if (previewImages[i].src.indexOf(file.dataURL) !== -1) {
-                            previewContainer.removeChild(previewImages[i]);
-                            break;
-                        }
-                    }
-                });
-            }
-        };
+            return thumbnailElement;
+        }
+
+        // Event listener for successful uploads
+        myDropzone.on("success", function(file, response) {
+            // Create the thumbnail preview element and add it to the container
+            var thumbnailContainer = document.querySelector(".thumbnails-container");
+            var thumbnailElement = createThumbnailElement(file, response.url);
+            thumbnailContainer.appendChild(thumbnailElement);
+        });
     </script>
 </body>
 
